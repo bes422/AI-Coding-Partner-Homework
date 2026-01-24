@@ -9,7 +9,7 @@ This module provides utility functions for:
 
 from typing import List
 from datetime import datetime
-from ..models.transaction import Transaction, TransactionType
+from models.transaction import Transaction, TransactionType
 
 
 def filter_by_account(transactions: List[Transaction], account_id: str) -> List[Transaction]:

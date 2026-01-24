@@ -8,7 +8,7 @@ for balance calculations and transaction summaries.
 from typing import List, Optional, Dict
 from datetime import datetime
 import uuid
-from ..models.transaction import Transaction, TransactionType, TransactionStatus
+from models.transaction import Transaction, TransactionType, TransactionStatus
 
 
 class TransactionService:

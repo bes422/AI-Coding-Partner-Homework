@@ -1,6 +1,6 @@
 # 🏦 Homework 1: Banking Transactions API
 
-> **Student Name**: [Your Name]
+> **Student Name**: Mykhailo Bestiuk
 > **Date Submitted**: 2024-01-24
 > **AI Tools Used**: Claude Code, GitHub Copilot
 

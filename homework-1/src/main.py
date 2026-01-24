@@ -19,7 +19,7 @@ from pydantic import ValidationError
 from typing import List, Dict
 import uvicorn
 
-from .routes.transactions import router as transactions_router
+from routes.transactions import router as transactions_router
 
 # Create FastAPI application
 app = FastAPI(
