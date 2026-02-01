@@ -41,6 +41,7 @@ If the input data is ambiguous, ask 3 clarifying questions before proceeding.
 - Identify the ambiguous elements
 - Ask exactly 3 targeted questions
 - Wait for clarification before generating code/documentation
+- Review output for consistency before finalizing
 
 **Example questions format:**
 1. "Regarding [ambiguous element], do you mean [option A] or [option B]?"
