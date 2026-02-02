@@ -102,14 +102,37 @@ Claude Code was used as the primary tool and proved highly effective for structu
 
 ## 📸 Screenshots & Demos
 
-### API Running Successfully
+### Project Setup & Prompt Templates
 
-![API Running](docs/screenshots/api-running.png)
+![VS Code project setup](homework-2/docs/screenshots/1.png)
+*Caption: VS Code with project structure and prompt template creation*
 
-### API Testing
+![Prompt template plan](homework-2/docs/screenshots/5.png)
+*Caption: Claude Code planning structured AI prompt templates with model subfolders*
 
-![API Test 1](docs/screenshots/api-test-1.png)
-*Caption: Swagger UI showing ticket CRUD endpoints*
+### AI Tool Interactions
+
+![Claude Code template output](homework-2/docs/screenshots/10.png)
+*Caption: Claude Code output format specification for AI-PLAN.md generation*
+
+![Claude Code reviewing AI-PLAN](homework-2/docs/screenshots/15.png)
+*Caption: Claude Code session reviewing AI-PLAN and fixing 7 review issues*
+
+![Claude Code writing integration tests](homework-2/docs/screenshots/20.png)
+*Caption: Claude Code session writing integration and performance tests from AI-PLAN tasks*
+
+![Task verification](homework-2/docs/screenshots/25.png)
+*Caption: Claude Code verifying integration tests (14 tests) and performance tests (13 tests) are complete*
+
+### Code Review & Demo Scripts
+
+![Code review and demo fixes](homework-2/docs/screenshots/30.png)
+*Caption: GPT-5 mini reviewing and patching demo scripts (run.sh, run.bat, sample-requests.http)*
+
+### Test Coverage
+
+![Test coverage report](homework-2/docs/screenshots/test_coverage.png)
+*Caption: Coverage report showing 85% total coverage across all source modules*
 
 ---
 
