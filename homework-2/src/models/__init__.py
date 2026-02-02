@@ -4,6 +4,7 @@ from .ticket import (
     TicketPriority,
     TicketStatus,
     TicketSource,
+    TicketMetadata,
     TicketBase,
     TicketCreate,
     TicketUpdate,
@@ -11,6 +12,7 @@ from .ticket import (
     TicketList,
     ClassificationResult,
     ImportResult,
+    ImportError,
 )
 
 __all__ = [
@@ -18,6 +20,7 @@ __all__ = [
     "TicketPriority", 
     "TicketStatus",
     "TicketSource",
+    "TicketMetadata",
     "TicketBase",
     "TicketCreate",
     "TicketUpdate",
@@ -25,4 +28,5 @@ __all__ = [
     "TicketList",
     "ClassificationResult",
     "ImportResult",
+    "ImportError",
 ]

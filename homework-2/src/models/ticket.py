@@ -11,7 +11,7 @@ Models:
 - TicketBase: Common fields
 - TicketCreate: For POST requests
 - TicketUpdate: For PATCH requests (all optional)
-- Ticket: Full model with id and timestamps
+- Ticket: Full model with UUID and timestamps
 - TicketList: Response wrapper
 - ClassificationResult: Auto-classification output
 - ImportResult: Bulk import result
@@ -19,9 +19,10 @@ Models:
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from pydantic import BaseModel, EmailStr, Field
 
 
 class TicketCategory(str, Enum):
@@ -60,14 +61,24 @@ class TicketSource(str, Enum):
     PHONE = "phone"
 
 
+class TicketMetadata(BaseModel):
+    """Metadata about ticket source and context"""
+    source: TicketSource = Field(..., description="Source channel")
+    browser: Optional[str] = Field(None, description="Browser used (if web_form)")
+    device_type: Optional[str] = Field(None, description="Device type: desktop, mobile, or tablet")
+
+
 class TicketBase(BaseModel):
     """Base model with common ticket fields"""
-    title: str = Field(..., min_length=10, max_length=100, description="Ticket title")
-    description: str = Field(..., min_length=50, max_length=500, description="Detailed description")
+    subject: str = Field(..., min_length=1, max_length=200, description="Ticket subject")
+    description: str = Field(..., min_length=10, max_length=2000, description="Detailed description")
+    customer_id: str = Field(..., description="Customer identifier")
     customer_email: EmailStr = Field(..., description="Customer email address")
+    customer_name: str = Field(..., description="Customer name")
     category: TicketCategory = Field(..., description="Ticket category")
     priority: TicketPriority = Field(default=TicketPriority.MEDIUM, description="Ticket priority")
-    source: TicketSource = Field(default=TicketSource.WEB_FORM, description="Source channel")
+    tags: List[str] = Field(default_factory=list, description="Tags for categorization")
+    metadata: TicketMetadata = Field(..., description="Source and context metadata")
 
 
 class TicketCreate(TicketBase):
@@ -77,21 +88,25 @@ class TicketCreate(TicketBase):
 
 class TicketUpdate(BaseModel):
     """Model for updating an existing ticket (all fields optional)"""
-    title: Optional[str] = Field(None, min_length=10, max_length=100)
-    description: Optional[str] = Field(None, min_length=50, max_length=500)
+    subject: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = Field(None, min_length=10, max_length=2000)
     customer_email: Optional[EmailStr] = None
+    customer_name: Optional[str] = None
     category: Optional[TicketCategory] = None
     priority: Optional[TicketPriority] = None
     status: Optional[TicketStatus] = None
-    source: Optional[TicketSource] = None
+    tags: Optional[List[str]] = None
+    assigned_to: Optional[str] = None
 
 
 class Ticket(TicketBase):
     """Full ticket model with all fields"""
-    id: int = Field(..., description="Unique ticket identifier")
+    id: UUID = Field(default_factory=uuid4, description="Unique ticket identifier (UUID)")
     status: TicketStatus = Field(default=TicketStatus.NEW, description="Current status")
     created_at: datetime = Field(default_factory=datetime.now, description="Creation timestamp")
     updated_at: datetime = Field(default_factory=datetime.now, description="Last update timestamp")
+    resolved_at: Optional[datetime] = Field(None, description="Resolution timestamp")
+    assigned_to: Optional[str] = Field(None, description="Assigned staff member")
 
     class Config:
         from_attributes = True
@@ -105,11 +120,12 @@ class TicketList(BaseModel):
 
 class ClassificationResult(BaseModel):
     """Result of auto-classification"""
-    ticket_id: int = Field(..., description="ID of classified ticket")
+    ticket_id: UUID = Field(..., description="ID of classified ticket")
     suggested_category: TicketCategory = Field(..., description="Suggested category")
+    suggested_priority: TicketPriority = Field(..., description="Suggested priority")
     confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score 0-1")
-    suggested_priority: Optional[TicketPriority] = Field(None, description="Suggested priority if detected")
-    keywords_matched: List[str] = Field(default_factory=list, description="Keywords that matched")
+    reasoning: str = Field(..., description="Explanation of classification")
+    keywords_found: List[str] = Field(default_factory=list, description="Keywords that matched")
 
 
 class ImportError(BaseModel):
@@ -120,7 +136,8 @@ class ImportError(BaseModel):
 
 class ImportResult(BaseModel):
     """Result of bulk import operation"""
+    total: int = Field(..., description="Total number of rows attempted")
     success_count: int = Field(..., description="Number of successfully imported tickets")
     error_count: int = Field(..., description="Number of failed imports")
     errors: List[ImportError] = Field(default_factory=list, description="Details of import errors")
-    imported_ids: List[int] = Field(default_factory=list, description="IDs of imported tickets")
+    imported_ids: List[UUID] = Field(default_factory=list, description="IDs of imported tickets")

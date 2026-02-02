@@ -8,14 +8,23 @@ Customer Support Ticket System
 """
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-# Import routers (to be implemented)
-# from .routes import tickets, import_routes
+from .routes import tickets, import_routes, classification_routes
 
 app = FastAPI(
     title="Customer Support Ticket System",
     description="REST API for managing customer support tickets with bulk import and auto-classification",
     version="1.0.0",
+)
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -41,6 +50,7 @@ async def health_check():
     }
 
 
-# TODO: Include routers
-# app.include_router(tickets.router, prefix="/tickets", tags=["Tickets"])
-# app.include_router(import_routes.router, prefix="/import", tags=["Import"])
+# Include routers
+app.include_router(tickets.router, prefix="/tickets", tags=["Tickets"])
+app.include_router(import_routes.router, prefix="/import", tags=["Import"])
+app.include_router(classification_routes.router, prefix="/tickets", tags=["Classification"])
