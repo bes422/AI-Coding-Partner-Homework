@@ -104,34 +104,34 @@ Claude Code was used as the primary tool and proved highly effective for structu
 
 ### Project Setup & Prompt Templates
 
-![VS Code project setup](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/1.png?raw=true)
+![VS Code project setup](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/1.png?raw=true)
 *Caption: VS Code with project structure and prompt template creation*
 
-![Prompt template plan](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/5.png?raw=true)
+![Prompt template plan](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/5.png?raw=true)
 *Caption: Claude Code planning structured AI prompt templates with model subfolders*
 
 ### AI Tool Interactions
 
-![Claude Code template output](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/10.png?raw=true)
+![Claude Code template output](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/10.png?raw=true)
 *Caption: Claude Code output format specification for AI-PLAN.md generation*
 
-![Claude Code reviewing AI-PLAN](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/15.png?raw=true)
+![Claude Code reviewing AI-PLAN](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/15.png?raw=true)
 *Caption: Claude Code session reviewing AI-PLAN and fixing 7 review issues*
 
-![Claude Code writing integration tests](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/20.png?raw=true)
+![Claude Code writing integration tests](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/20.png?raw=true)
 *Caption: Claude Code session writing integration and performance tests from AI-PLAN tasks*
 
-![Task verification](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/25.png?raw=true)
+![Task verification](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/25.png?raw=true)
 *Caption: Claude Code verifying integration tests (14 tests) and performance tests (13 tests) are complete*
 
 ### Code Review & Demo Scripts
 
-![Code review and demo fixes](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/30.png?raw=true)
+![Code review and demo fixes](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/30.png?raw=true)
 *Caption: GPT-5 mini reviewing and patching demo scripts (run.sh, run.bat, sample-requests.http)*
 
 ### Test Coverage
 
-![Test coverage report](https://github.com/bes422/AI-Coding-Partner-Homework/blob/main/homework-2/docs/screenshots/test_coverage.png?raw=true)
+![Test coverage report](https://github.com/bes422/AI-Coding-Partner-Homework/blob/homework-2-submissions/homework-2/docs/screenshots/test_coverage.png?raw=true)
 *Caption: Coverage report showing 85% total coverage across all source modules*
 
 ---
