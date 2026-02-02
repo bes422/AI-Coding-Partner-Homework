@@ -1,38 +1,39 @@
 # 📝 Homework Submission - Homework 2
 
 > **Student Name**: [Student Name]
-> **Date Submitted**: 2024-02-02
-> **Assignment**: Homework 2: Customer Support Ticket System - Integration Tests & Documentation
+> **Date Submitted**: 2026-02-02
+> **Assignment**: Homework 2: Customer Support Ticket System
 
 ---
 
 ## ✅ Summary of Implementation
 
-This PR completes tasks 14, 15, and 17 from the AI-PLAN.md, adding comprehensive testing and documentation to the Customer Support Ticket System.
+This PR submits the complete Homework 2 implementation: a Customer Support Ticket System REST API built with FastAPI and Python. It includes full CRUD operations, multi-format bulk import (CSV/JSON/XML), keyword-based auto-classification with confidence scoring, advanced filtering, and comprehensive testing with 117 tests across 9 test files.
 
 ### Core Features Implemented
-- [x] **Task 14**: Write integration tests (TEMPLATE_CLAUDE_TESTER_INTEGRATION)
-  - 14 comprehensive end-to-end tests covering complete workflows
-- [x] **Task 15**: Write performance tests
-  - 13 benchmark tests validating response times and scalability
-- [x] **Task 17**: Generate documentation (TEMPLATE_*_DOCUMENTER_*)
-  - Enhanced README.md with detailed usage examples
-  - Complete API_REFERENCE.md with all endpoints documented
-  - Comprehensive TESTING_GUIDE.md with test pyramid and benchmarks
-  - Detailed ARCHITECTURE.md with system design and ADRs
+- [x] **Task 1-3**: Project structure, Pydantic models, and validators
+- [x] **Task 4**: Ticket service with in-memory storage and full CRUD
+- [x] **Task 5**: Import service supporting CSV, JSON, and XML bulk import
+- [x] **Task 6**: Classification service with keyword-based auto-categorization and confidence scoring
+- [x] **Task 7-9**: RESTful routes for tickets, import, and classification
+- [x] **Task 10-13**: Unit tests for API, models, services, categorization, and imports
+- [x] **Task 14**: Integration tests (14 end-to-end workflow tests)
+- [x] **Task 15**: Performance tests (13 benchmark tests)
+- [x] **Task 16**: Sample data generation with fixture files
+- [x] **Task 17**: Comprehensive documentation (API Reference, Architecture, Testing Guide)
 
 ### Key Highlights
-- **All 41 tests passing**: 14 smoke + 14 integration + 13 performance tests
-- **Integration tests** cover complete CRUD lifecycles, bulk imports, classification workflows, and edge cases
-- **Performance tests** validate single operations (<50ms), bulk operations (<2s), and concurrent request handling
-- **Comprehensive documentation** with Mermaid diagrams, code examples, and troubleshooting guides
-- **Test coverage** maintains 85%+ target across all modules
+
+- 117 tests across 9 test files, all passing with 85%+ coverage target
+- Multi-format bulk import with partial failure handling (CSV, JSON, XML)
+- Keyword-based auto-classification across 6 categories with confidence scores
+- Production-grade documentation with Mermaid diagrams and ADRs
 
 ### Technology Stack
+
 - **Language**: Python 3.8+
 - **Framework**: FastAPI + Pydantic
-- **Testing**: pytest, pytest-cov, pytest-asyncio, httpx
-- **Documentation**: Markdown with Mermaid diagrams
+- **Key Dependencies**: uvicorn, email-validator, python-multipart, httpx, pytest, pytest-cov, pytest-asyncio
 
 ---
 
@@ -45,39 +46,32 @@ This PR completes tasks 14, 15, and 17 from the AI-PLAN.md, adding comprehensive
 
 ### How AI Tools Were Used
 
-#### Claude Code (Claude Sonnet 4.5)
+#### Claude Code
 **Used for:**
-- Writing comprehensive integration tests following TEMPLATE_CLAUDE_TESTER_INTEGRATION
-- Creating performance benchmark tests with timing validation
-- Generating complete API documentation with examples
-- Writing architecture documentation with Mermaid diagrams
-- Enhancing README with troubleshooting and usage sections
+- Designing layered architecture (routes → services → models → validators)
+- Implementing all source modules following AI-PLAN.md templates
+- Writing 117 tests across unit, integration, and performance categories
+- Generating comprehensive documentation with Mermaid diagrams
 
 **Example prompts:**
 ```
-1. "Complete following tasks from the homework-2\AI-PLAN.md
-    | 14 | ⬜ Write integration tests | TEMPLATE_CLAUDE_TESTER_INTEGRATION | 10 |
-    | 15 | ⬜ Write performance tests | — | 14 |
-    | 17 | ⬜ Generate documentation | TEMPLATE_*_DOCUMENTER_* | 15, 16 |"
+1. "Complete following tasks from the homework-2/AI-PLAN.md [task list]"
+2. "Add missing required test files and fixtures for homework-2 compliance"
 ```
 
 **Effectiveness:** Excellent
-- Generated well-structured tests following pytest best practices
-- Created comprehensive documentation with proper formatting
-- All tests passed on first execution (after one minor fix)
-- Documentation follows template specifications accurately
 
 ### AI Tools Comparison
 
-| Aspect | Claude Code | Notes |
-|--------|-------------|-------|
-| Code Quality | Excellent | Clean, well-organized test structure |
-| Speed | Very Fast | Generated all tests and docs in one session |
-| Understanding Context | Excellent | Understood existing codebase and templates |
-| Best For | Complex test scenarios and documentation | Ideal for comprehensive technical writing |
+| Aspect | Claude Code |
+|--------|-------------|
+| Code Quality | Excellent - clean separation of concerns |
+| Speed | Very fast - full implementation in few sessions |
+| Understanding Context | Excellent - followed templates and existing patterns |
+| Best For | Architecture design, test generation, documentation |
 
 **Which tool was more helpful overall?**
-Claude Code was used exclusively for this task and proved highly effective for generating structured tests and comprehensive documentation following established templates.
+Claude Code was used as the primary tool and proved highly effective for structured implementation following established templates.
 
 ---
 
@@ -86,209 +80,181 @@ Claude Code was used exclusively for this task and proved highly effective for g
 ### Technical Challenges
 
 1. **Challenge**: Integration test for `classify-all` endpoint expected different response format
-   - **Solution**: Fixed test assertion to match actual API response format (ClassificationResult list without ticket IDs)
+   - **Solution**: Fixed test assertion to match actual API response format (ClassificationResult list)
    - **AI Tool Help**: Claude identified the issue and corrected the test expectations
 
 2. **Challenge**: Ensuring performance tests validate realistic benchmarks
-   - **Solution**: Set appropriate timeout thresholds based on operation complexity (50ms for single ops, 2s for 100-item bulk imports)
-   - **AI Tool Help**: Claude researched standard API performance benchmarks and applied appropriate targets
+   - **Solution**: Set appropriate timeout thresholds (50ms single ops, 2s bulk for 100 tickets)
+   - **AI Tool Help**: Claude applied standard API performance benchmarks
 
 ### AI-Related Challenges
 
-- **Issue**: Initial test for `classify-all` failed due to incorrect field expectations
+- **Issue**: Initial classify-all test failed due to incorrect field expectations
   - **How you resolved it**: Reviewed actual API endpoint response, updated test to match ClassificationResult model
 
 ### Learning Points
 
 - Integration tests should validate complete workflows, not just individual operations
 - Performance benchmarks need realistic thresholds based on operation complexity
-- Comprehensive documentation requires balancing technical accuracy with readability
-- Mermaid diagrams significantly improve architecture documentation clarity
+- Clear templates (TEMPLATE_CLAUDE_TESTER_INTEGRATION) guide AI to produce consistent results
+
+---
+
+## 📸 Screenshots & Demos
+
+### Project Setup & Prompt Templates
+
+![VS Code project setup](homework-2/docs/screenshots/1.png)
+*Caption: VS Code with project structure and prompt template creation*
+
+![Prompt template plan](homework-2/docs/screenshots/5.png)
+*Caption: Claude Code planning structured AI prompt templates with model subfolders*
+
+### AI Tool Interactions
+
+![Claude Code template output](homework-2/docs/screenshots/10.png)
+*Caption: Claude Code output format specification for AI-PLAN.md generation*
+
+![Claude Code reviewing AI-PLAN](homework-2/docs/screenshots/15.png)
+*Caption: Claude Code session reviewing AI-PLAN and fixing 7 review issues*
+
+![Claude Code writing integration tests](homework-2/docs/screenshots/20.png)
+*Caption: Claude Code session writing integration and performance tests from AI-PLAN tasks*
+
+![Task verification](homework-2/docs/screenshots/25.png)
+*Caption: Claude Code verifying integration tests (14 tests) and performance tests (13 tests) are complete*
+
+### Code Review & Demo Scripts
+
+![Code review and demo fixes](homework-2/docs/screenshots/30.png)
+*Caption: GPT-5 mini reviewing and patching demo scripts (run.sh, run.bat, sample-requests.http)*
+
+### Test Coverage
+
+![Test coverage report](homework-2/docs/screenshots/test_coverage.png)
+*Caption: Coverage report showing 85% total coverage across all source modules*
 
 ---
 
 ## 📚 Documentation
 
 ### README.md
-- [x] Project overview enhanced with detailed feature descriptions
-- [x] Features documented with usage examples
-- [x] Architecture highlights included
-- [x] Comprehensive troubleshooting section added
-- [x] Auto-classification explanation with keyword lists
+- [x] Project overview included
+- [x] Features documented
+- [x] Architecture explained
+- [x] AI tools usage documented
 
-### API_REFERENCE.md
-- [x] Complete endpoint documentation (700+ lines)
-- [x] Request/response examples with cURL commands
-- [x] Data model specifications with validation rules
-- [x] Error code reference and handling strategies
-
-### TESTING_GUIDE.md
-- [x] Test pyramid with Mermaid diagram
-- [x] Detailed test category descriptions
-- [x] Performance benchmark tables
-- [x] Manual testing checklist
-- [x] Troubleshooting guide for common test issues
-
-### ARCHITECTURE.md
-- [x] High-level architecture with Mermaid diagrams
-- [x] Component details and responsibilities
-- [x] Data flow diagrams (sequence diagrams)
-- [x] Architecture Decision Records (5 ADRs)
-- [x] Security and scalability considerations
+### HOWTORUN.md
+- [x] Prerequisites listed
+- [x] Installation steps clear
+- [x] Running instructions complete
+- [x] Testing guide included
 
 ### Code Comments
-- [x] Test docstrings explain what each test validates
-- [x] Test classes group related scenarios
-- [x] Assertion messages provide clear failure context
+- [x] Complex logic explained
+- [x] Functions documented
+- [x] API endpoints described
 
 ---
 
 ## 🧪 Testing
 
-### Test Coverage
-
-**Test Statistics:**
-- Total tests: 41 (all passing)
-- Smoke tests: 14 (basic functionality)
-- Integration tests: 14 (end-to-end workflows)
-- Performance tests: 13 (benchmark validation)
-
-**Test Execution Time:** ~2 seconds for all tests
-
-### Integration Tests Breakdown
-
-| Test Class | Tests | Coverage |
-|------------|-------|----------|
-| TestTicketLifecycle | 2 | Complete CRUD workflow, status transitions |
-| TestBulkImportAndFiltering | 3 | CSV/JSON/XML import + filtering |
-| TestClassificationIntegration | 3 | Auto-classification with keyword detection |
-| TestEdgeCasesAndErrors | 6 | Error handling, 404s, validation, edge cases |
-
-### Performance Tests Breakdown
-
-| Test Class | Tests | Benchmark Target |
-|------------|-------|------------------|
-| TestSingleOperationPerformance | 5 | <50ms per operation |
-| TestBulkOperationPerformance | 4 | <2s for 100 tickets |
-| TestConcurrentOperations | 2 | 20 concurrent requests |
-| TestMemoryEfficiency | 2 | 200 ticket handling |
+### Manual Testing Completed
+- [x] All endpoints tested
+- [x] Validation rules verified
+- [x] Error handling checked
+- [x] Edge cases considered
 
 ### Test Results
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Complete CRUD Lifecycle | ✅ | Create → Read → Update → Delete → Verify |
-| Status Workflow | ✅ | new → in_progress → resolved → closed |
-| CSV Import + Filtering | ✅ | 3 tickets imported, category/priority/status filters work |
-| JSON Import | ✅ | 2 tickets imported successfully |
-| XML Import | ✅ | 2 tickets imported with tag parsing |
-| Billing Classification | ✅ | Keywords: invoice, charge, refund |
-| Technical Classification | ✅ | Keywords: error, crash, timeout |
-| Batch Classification | ✅ | All tickets classified with confidence scores |
-| 404 Error Handling | ✅ | GET/UPDATE/DELETE non-existent ticket |
-| Validation Errors | ✅ | 422 on invalid data |
-| Performance Benchmarks | ✅ | All operations within target thresholds |
+| Create Ticket | ✅ | POST with full validation |
+| List Tickets | ✅ | GET with filtering by category/priority/status |
+| Get Ticket by ID | ✅ | 404 for non-existent |
+| Update Ticket | ✅ | PATCH with partial updates |
+| Delete Ticket | ✅ | Soft delete with confirmation |
+| CSV Import | ✅ | Bulk import with error handling |
+| JSON Import | ✅ | Bulk import with validation |
+| XML Import | ✅ | Bulk import with tag parsing |
+| Auto-Classification | ✅ | Keyword-based with confidence scores |
+| Statistics | ✅ | Category/priority/status distribution |
+| Performance | ✅ | All benchmarks within thresholds |
 
 ---
 
 ## 📋 Submission Checklist
 
 ### Required Files
-- [x] Source code in `src/` directory (existing)
-- [x] `README.md` enhanced with comprehensive documentation
-- [x] `HOWTORUN.md` with setup instructions (existing)
-- [x] `.gitignore` file (existing)
+- [x] Source code in `src/` directory
+- [x] `README.md` with project documentation
+- [x] `HOWTORUN.md` with setup instructions
+- [x] `.gitignore` file (excludes node_modules, .env, etc.)
 
-### New Test Files
-- [x] `tests/test_integration.py` - 14 end-to-end tests
-- [x] `tests/test_performance.py` - 13 benchmark tests
-- [x] All tests passing (41/41)
+### Screenshots (in `docs/screenshots/`)
+- [x] AI tool interactions
+- [x] Application running successfully
+- [x] API request/response examples
 
-### Documentation Files (in `docs/`)
-- [x] `API_REFERENCE.md` - Complete endpoint documentation (700+ lines)
-- [x] `TESTING_GUIDE.md` - Test strategy and benchmarks (500+ lines)
-- [x] `ARCHITECTURE.md` - System design and ADRs (600+ lines)
+### Demo Files (in `demo/`)
+- [x] Run script (`run.sh` and `run.bat`)
+- [x] Sample API requests file
+- [x] Sample data
 
 ### Code Quality
-- [x] Tests are well-organized into logical classes
-- [x] Proper test structure (Arrange-Act-Assert pattern)
-- [x] Meaningful test names describing scenarios
-- [x] Comprehensive error handling validation
-- [x] Performance benchmarks with clear thresholds
+- [x] Code is well-organized
+- [x] Proper folder structure
+- [x] Meaningful variable/function names
+- [x] Error handling implemented
+- [x] Input validation working
 
 ---
 
 ## 💭 Reflection
 
 ### What Went Well
-- All tests passed on first execution after minor fix
-- Integration tests comprehensively cover end-to-end workflows
-- Performance tests validate realistic benchmarks
-- Documentation is thorough with diagrams and examples
-- Test structure follows pytest best practices
-- Mermaid diagrams enhance documentation readability
+
+- Layered architecture kept code clean and testable
+- AI-PLAN.md templates provided clear implementation targets
+- 117 tests give strong confidence in correctness
 
 ### What Could Be Improved
-- Could add more edge case tests for concurrent operations
-- Could include load testing with higher concurrency
-- Could add mutation testing to verify test effectiveness
-- Could automate performance regression detection
+
+- Could add database persistence layer for production use
+- Could add authentication/authorization
+- Could use ML-based classification instead of keyword matching
 
 ### Key Learnings About AI-Assisted Development
+
 - AI excels at generating comprehensive test suites following established patterns
-- Clear templates (TEMPLATE_CLAUDE_TESTER_INTEGRATION) guide AI to produce consistent results
-- AI-generated documentation maintains consistency across multiple files
-- Iterative refinement (fixing the classify-all test) demonstrates AI's adaptability
-- Mermaid diagram generation by AI significantly speeds up architecture documentation
+- Clear templates guide AI to produce consistent, high-quality results
+- Iterative refinement with AI tools is fast and effective
 
 ### Time Spent
-- **Planning**: 5 minutes (reviewing templates and existing code)
-- **Implementation**: 25 minutes (tests and documentation generation)
-- **Testing & Debugging**: 5 minutes (fixing classify-all test assertion)
-- **Documentation**: Included in implementation (generated together)
-- **Total**: ~35 minutes
+
+- **Planning**: ~10 minutes
+- **Implementation**: ~60 minutes
+- **Testing & Debugging**: ~15 minutes
+- **Documentation**: ~15 minutes
+- **Total**: ~100 minutes
 
 ---
 
 ## 🔗 Additional Resources
 
-- [pytest Documentation](https://docs.pytest.org/) - Testing framework reference
-- [FastAPI Testing Guide](https://fastapi.tiangolo.com/tutorial/testing/) - API testing best practices
-- [Mermaid Documentation](https://mermaid.js.org/) - Diagram syntax reference
-- [API Design Best Practices](https://restfulapi.net/) - REST API conventions
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [pytest Documentation](https://docs.pytest.org/)
+- [Pydantic Documentation](https://docs.pydantic.dev/)
 
 ---
 
-## ✨ Bonus Features
+## ✨ Bonus Features (Optional)
 
-- **Mermaid Diagrams**: Architecture, component, sequence, and test pyramid diagrams
-- **Performance Benchmarks**: Detailed timing thresholds with acceptable/unacceptable ranges
-- **ADRs**: 5 Architecture Decision Records explaining key design choices
-- **Manual Testing Checklist**: Comprehensive pre-deployment verification checklist
-- **Troubleshooting Guide**: Common issues and solutions for tests and deployment
-- **CI/CD Example**: GitHub Actions workflow configuration for automated testing
-
----
-
-## 📊 Test Coverage Summary
-
-```
-tests/test_integration.py .............. [ 34% ] 14 passed
-tests/test_performance.py ............. [ 66% ] 13 passed
-tests/test_smoke.py ................... [100% ] 14 passed
-
-====== 41 passed, 1 warning in 1.79s ======
-```
-
-**Coverage:** 85%+ maintained across all source modules
+- Mermaid diagrams in architecture documentation
+- 5 Architecture Decision Records (ADRs)
+- Performance benchmark suite with timing thresholds
+- Manual testing checklist for pre-deployment verification
 
 ---
 
 **Ready for review!** 🚀
-
-**Changes Summary:**
-- ✅ Task 14: Integration tests (14 tests, all passing)
-- ✅ Task 15: Performance tests (13 tests, all benchmarks met)
-- ✅ Task 17: Documentation (4 comprehensive markdown files)
-- ✅ All 41 tests passing (14 smoke + 14 integration + 13 performance)
-- ✅ 3,190+ lines of new content (tests + documentation)
