@@ -1,5 +1,5 @@
 ### Customer Support Ticket System - Sample API Requests
-### Use with VS Code REST Client extension or similar
+### Use with VS Code REST Client extension, curl, or similar tools
 
 @baseUrl = http://localhost:8000
 
@@ -9,21 +9,21 @@ GET {{baseUrl}}/health
 ### Root endpoint
 GET {{baseUrl}}/
 
-### ============================================
-### TICKET CRUD OPERATIONS
-### ============================================
+### --------------------------------------------
+### TICKET CRUD OPERATIONS (note: use `subject` field, IDs are UUIDs)
+### --------------------------------------------
 
 ### Create a new ticket
 POST {{baseUrl}}/tickets
 Content-Type: application/json
 
 {
-  "title": "Cannot access my account after password reset",
+  "subject": "Cannot access my account after password reset",
   "description": "I tried to reset my password but now I cannot log in at all. The error message says my account is locked. This is critical for my work.",
   "customer_email": "customer@example.com",
   "category": "account_access",
   "priority": "high",
-  "source": "web_form"
+  "metadata": { "source": "web_form" }
 }
 
 ### Get all tickets
@@ -41,11 +41,11 @@ GET {{baseUrl}}/tickets?status=new
 ### Get tickets with multiple filters
 GET {{baseUrl}}/tickets?category=account_access&priority=high&status=new
 
-### Get single ticket by ID
-GET {{baseUrl}}/tickets/1
+### Get single ticket by ID (replace with actual UUID returned on create)
+GET {{baseUrl}}/tickets/{{ticket_uuid}}
 
 ### Update a ticket
-PATCH {{baseUrl}}/tickets/1
+PATCH {{baseUrl}}/tickets/{{ticket_uuid}}
 Content-Type: application/json
 
 {
@@ -54,44 +54,37 @@ Content-Type: application/json
 }
 
 ### Delete a ticket
-DELETE {{baseUrl}}/tickets/1
+DELETE {{baseUrl}}/tickets/{{ticket_uuid}}
 
 ### Get ticket statistics
 GET {{baseUrl}}/tickets/stats
 
-### ============================================
-### BULK IMPORT OPERATIONS
-### ============================================
+### --------------------------------------------
+### BULK IMPORT OPERATIONS (use curl or REST client file upload)
+### --------------------------------------------
 
-### Import from CSV file
-POST {{baseUrl}}/import/csv
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+### Import from CSV (curl example)
+### Replace the path to the CSV file as needed
+curl -X POST "{{baseUrl}}/import/csv" -F "file=@../fixtures/sample_tickets.csv"
 
-------WebKitFormBoundary
-Content-Disposition: form-data; name="file"; filename="tickets.csv"
-Content-Type: text/csv
+### Import from JSON (curl example)
+curl -X POST "{{baseUrl}}/import/json" -F "file=@../fixtures/sample_tickets.json"
 
-id,title,description,customer_email,category,priority,status,source,created_at,updated_at
-1,Login issues after update,Ever since the last update I cannot log into my account. I have tried clearing cookies and cache but nothing works.,user1@example.com,account_access,urgent,new,email,2024-01-15T10:30:00,2024-01-15T10:30:00
-------WebKitFormBoundary--
+### If using the VS Code REST Client, attach files using the extension's file upload syntax
 
-### Import from JSON file
-POST {{baseUrl}}/import/json
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
-
-------WebKitFormBoundary
-Content-Disposition: form-data; name="file"; filename="tickets.json"
-Content-Type: application/json
-
-[{"title": "Request for dark mode feature", "description": "It would be really nice if you could add a dark mode option to the application. Many users have been requesting this.", "customer_email": "user2@example.com", "category": "feature_request", "priority": "low", "source": "web_form"}]
-------WebKitFormBoundary--
-
-### ============================================
+### --------------------------------------------
 ### CLASSIFICATION OPERATIONS
-### ============================================
+### --------------------------------------------
 
-### Classify a single ticket
-POST {{baseUrl}}/tickets/1/classify
+### Classify a single ticket (auto-classify endpoint may be named `/tickets/{id}/auto-classify`)
+POST {{baseUrl}}/tickets/{{ticket_uuid}}/auto-classify
 
 ### Auto-classify all tickets
 POST {{baseUrl}}/tickets/classify-all
+
+### Notes / Verification checklist:
+- Use `subject` (not `title`) to match the ticket model used in code.
+- IDs are UUIDs; do not assume integer IDs like `1`—replace `{{ticket_uuid}}` with the created ticket's `id`.
+- Import endpoints expect a multipart file upload; curl examples above are reliable across platforms.
+- If your routes differ (e.g., `/tickets/:id/classify` vs `/tickets/:id/auto-classify`), adapt the endpoints here to match `src/routes`.
+
