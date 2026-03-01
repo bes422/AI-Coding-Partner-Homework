@@ -183,6 +183,3 @@ See [homework-4/HOWTORUN.md](homework-4/HOWTORUN.md) for detailed instructions.
 **Ready for review!** 🚀
 
 ---
-
-**Ready for review!** 🚀
-
