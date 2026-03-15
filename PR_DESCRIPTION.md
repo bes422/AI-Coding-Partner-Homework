@@ -1,185 +1,182 @@
-# 📝 Homework Submission - Homework 4
+# 📝 Homework Submission - Homework 5
 
-> **Student Name**: Mykhailo Bestiuk  
-> **Date Submitted**: March 1, 2026  
-> **Assignment**: Homework 4: 4-Agent Pipeline for Bug Fixing
+> **Student Name**: Mykhailo Bestiuk
+> **Date Submitted**: March 15, 2026
+> **Assignment**: Homework 5: Configure MCP Servers (GitHub, Filesystem, Jira, Custom)
 
 ---
 
 ## ✅ Summary
 
-This PR submits a **4-agent pipeline** for autonomous bug fixing applied to a real Node.js/Express API bug (API-404: type mismatch in user lookup endpoint).
+This PR submits the configuration of **three external MCP servers** (GitHub, Filesystem, and GitHub Issues as a Jira alternative) and a **custom MCP server** built with FastMCP that exposes a resource URI and a `read` tool for word-limited content delivery.
 
-**Folder**: `homework-4/`
+**Folder**: `homework-5/`
 
 ### 📦 Deliverables
 
 | # | Deliverable | Status |
 |---|------------|--------|
-| 1-4 | 4 Agents (Research Verifier, Bug Implementer, Security Verifier, Unit Test Generator) | ✅ Complete |
-| 5-6 | 2 Skills (Research Quality Measurement, FIRST Testing) | ✅ Complete |
-| 7 | Working Application (bug fixed, 8/8 tests pass) | ✅ Complete |
-| 8 | Pipeline Artifacts (6 documents in `context/bugs/API-404/`) | ✅ Complete |
-| 9 | Documentation (README, HOWTORUN, STUDENT) | ✅ Complete |
-| 10 | Screenshots (3 files) | ✅ Complete |
+| 1 | GitHub MCP — configured with PAT, interaction documented | ✅ Complete |
+| 2 | Filesystem MCP — configured with directory path, interaction documented | ✅ Complete |
+| 3 | GitHub Issues MCP (Jira alternative) — last 5 bug issues queried | ✅ Complete |
+| 4 | Custom FastMCP server — `server.py`, resource URI, `read` tool | ✅ Complete |
+| 5 | `lorem-ipsum.md` — 140-word source text for resource output | ✅ Complete |
+| 6 | `requirements.txt` — includes `fastmcp>=0.1.0` | ✅ Complete |
+| 7 | `HOWTORUN.md` — install, run, connect, and usage instructions | ✅ Complete |
+| 8 | `mcp.json` — combined config for all three server types | ✅ Complete |
+| 9 | `README.md` — author, task descriptions, project structure | ✅ Complete |
+| 10 | Screenshots (4 files in `docs/screenshots/`) | ✅ Complete |
 
 ---
 
-## 🐛 Bug Fixed: API-404
+## 🔌 Task 1: GitHub MCP
 
-**Issue**: `GET /api/users/:id` returns 404 for all valid user IDs
+**Server**: `@modelcontextprotocol/server-github` (via npx)
 
-**Root Cause**: JavaScript type mismatch - Express params are strings (`"123"`), users array has numeric IDs (`123`), strict equality (`===`) never matches.
-
-**Fix**: Added `parseInt(req.params.id, 10)` on line 19 of `userController.js`
-
-**Result**: 8/8 tests pass, endpoint now works correctly
-
----
-
-## 🤖 The 4-Agent Pipeline
-
-```
-Bug Research → Research Verifier (EXCELLENT 4.7/5.0) → Bug Planner
-    → Bug Implementer (SUCCESS, 8/8 tests) → Security Verifier (0 CRITICAL)
-    → Unit Test Generator (8 tests, FIRST ✓)
+**Configuration** (`mcp.json`):
+```json
+"github": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-github"],
+  "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" }
+}
 ```
 
-### Agent Results Summary
+**Interaction**: Listed recent pull requests in `bes422/AI-Coding-Partner-Homework` using the `list_pull_requests` tool.
 
-| Agent | Output | Key Metrics |
-|-------|--------|-------------|
-| **Research Verifier** | `verified-research.md` | EXCELLENT (4.7/5.0), all file:line refs verified |
-| **Bug Implementer** | `fix-summary.md` | SUCCESS, 1 line changed, 8/8 tests pass |
-| **Security Verifier** | `security-report.md` | 0 CRITICAL, 0 HIGH, 1 MEDIUM, 1 LOW |
-| **Unit Test Generator** | `test-report.md` + `tests/` | 8 tests generated, FIRST compliant, 8/8 pass |
+**Screenshot**: `docs/screenshots/github-mcp-result.png`
 
 ---
 
-## 🎯 Skills Created
+## 📁 Task 2: Filesystem MCP
 
-### 1. Research Quality Measurement
-Weighted scoring framework (5 criteria):
-- File/Line Reference Accuracy (30%)
-- Code Snippet Completeness (25%)
-- Root Cause Depth (25%)
-- Reproduction Steps Clarity (10%)
-- Evidence Quality (10%)
+**Server**: `@modelcontextprotocol/server-filesystem` (via npx)
 
-**Quality Levels**: EXCELLENT (4.0-5.0), GOOD (3.0-3.9), ACCEPTABLE (2.0-2.9), POOR (1.0-1.9), INSUFFICIENT (0.0-0.9)
-
-### 2. Unit Tests FIRST
-Testing principles applied:
-- **F**ast - Run in <300ms
-- **I**ndependent - No test dependencies
-- **R**epeatable - Same result every time
-- **S**elf-validating - Pass/fail via assertions
-- **T**imely - Written with implementation
-
----
-
-## 🧪 Test Results
-
-**Status**: ✅ 8/8 tests pass
-
-```
-PASS  tests/users.test.js
-  getUserById
-    ✓ returns user for valid ID 123
-    ✓ returns user for valid ID 456
-    ✓ returns user for valid ID 789
-    ✓ returns 404 for non-existent ID 999
-    ✓ returns 404 for non-numeric ID "abc"
-    ✓ [REGRESSION] string "123" resolves to user (API-404 fix)
-  getAllUsers
-    ✓ returns all 3 users
-    ✓ each user has id, name, and email
-
-Tests: 8 passed, 8 total
-Time: 0.287 s
+**Configuration** (`mcp.json`):
+```json
+"filesystem": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-filesystem", "."]
+}
 ```
 
+**Interaction**: Listed all files in `homework-5/` and read `TASKS.md` via the filesystem MCP tools.
+
+**Screenshot**: `docs/screenshots/filesystem-mcp-result.png`
+
 ---
 
-## 🔍 Code Changes
+## 🎫 Task 3: GitHub Issues MCP (Jira Alternative)
 
-**File**: `homework-4/demo-bug-fix/src/controllers/userController.js`
+> **Note:** Jira was not available for this project. GitHub Issues via the GitHub MCP server was used as an equivalent demonstration of project management integration. The same concepts apply — querying tickets/issues by type, retrieving recent items, and AI-assisted project management queries.
 
-```diff
-- const userId = req.params.id;
-+ const userId = parseInt(req.params.id, 10);
+**Interaction**: Queried the last 5 issues labeled `bug` in `bes422/AI-Coding-Partner-Homework`:
+
+| Concept | Jira | GitHub Issues |
+|---------|------|---------------|
+| MCP Server | `mcp-server-jira` | `@modelcontextprotocol/server-github` |
+| Bug filter | `type = Bug` | `label:bug` |
+| Ticket ID | `PROJ-123` | `#1`, `#2`, ... |
+
+**Screenshot**: `docs/screenshots/github-issues-mcp-result.png`
+
+---
+
+## 🛠️ Task 4: Custom MCP Server (FastMCP)
+
+**Location**: `homework-5/custom-mcp-server/`
+
+### What was built
+
+| Component | Description |
+|-----------|-------------|
+| **Resource** `lorem://content/{word_count}` | Reads `lorem-ipsum.md`, returns first N words |
+| **Tool** `read(word_count=30)` | Claude calls this to retrieve word-limited content |
+| `lorem-ipsum.md` | 140-word source text |
+| `requirements.txt` | `fastmcp>=0.1.0` |
+| `HOWTORUN.md` | Full setup, run, connect, and usage guide |
+
+### Key concepts documented
+
+- **Resources**: URIs that Claude can read from (e.g., files, APIs, databases). They represent data sources accessed by URI pattern.
+- **Tools**: Actions Claude can call to perform operations (e.g., reading a file, querying an API). Invoked by name with typed arguments.
+
+### Server implementation (`server.py`)
+
+```python
+@mcp.resource("lorem://content/{word_count}")
+def lorem_resource(word_count: int = 30) -> str:
+    return _get_words(word_count)
+
+@mcp.tool()
+def read(word_count: int = 30) -> str:
+    return _get_words(word_count)
 ```
 
-**Files Created:**
-- `.claude/agents/` - 4 agent definitions
-- `homework-4/skills/` - 2 skill documents
-- `homework-4/demo-bug-fix/tests/` - 8 unit tests
-- `homework-4/context/bugs/API-404/` - 6 pipeline artifacts
-- `homework-4/docs/screenshots/` - 3 screenshots
-- Documentation: README, HOWTORUN, STUDENT
+**Screenshot**: `docs/screenshots/custom-mcp-read-tool-result.png`
 
 ---
 
-## � Screenshots
+## 📁 Project Structure
 
-### Agent Pipeline Execution
-![Agent Pipeline Execution](homework-4/docs/screenshots/1.png)
-
-### Test Results
-![Test Results](homework-4/docs/screenshots/2.png)
-
-### Bug Fix Verification
-![Bug Fix Verification](homework-4/docs/screenshots/3.png)
-
----
-
-## �🛠️ AI Tools Used
-
-- **GitHub Copilot** (Claude Sonnet 4.5) - Agent definitions, skills, tests, documentation
-- **Claude Code CLI** - Installed via `npm install -g @anthropic-ai/claude-code`
-
----
-
-## 💡 Key Insights
-
-**Agent Pipeline Design:**
-- Separation of concerns - each agent has one responsibility
-- Skills as contracts - reproducible quality standards
-- Chained verification - research → implementation → security → tests
-
-**Results:**
-- Research Quality: EXCELLENT (4.7/5.0) with all file:line refs verified
-- Security: 0 critical/high findings, 2 minor findings documented
-- Tests: 8/8 pass, all FIRST principles satisfied
-- Fix: Single-line change resolved type mismatch bug
+```
+homework-5/
+├── README.md                          ← Author info + task descriptions
+├── TASKS.md                           ← Assignment description
+├── mcp.json                           ← Combined MCP config (GitHub + Filesystem + Custom)
+├── custom-mcp-server/
+│   ├── server.py                      ← FastMCP server (resource + read tool)
+│   ├── lorem-ipsum.md                 ← 140-word source text
+│   ├── requirements.txt               ← fastmcp>=0.1.0
+│   └── HOWTORUN.md                    ← Install/run/connect/usage instructions
+├── plan/
+│   ├── PLAN-TASK-1-GITHUB-MCP.md
+│   ├── PLAN-TASK-2-FILESYSTEM-MCP.md
+│   ├── PLAN-TASK-3-GITHUB-ISSUES.md
+│   └── PLAN-TASK-4-CUSTOM-MCP.md
+└── docs/
+    └── screenshots/
+        ├── github-mcp-result.png
+        ├── filesystem-mcp-result.png
+        ├── github-issues-mcp-result.png
+        └── custom-mcp-read-tool-result.png
+```
 
 ---
 
-## 📊 Before vs After
+## 📸 Screenshots
 
-| Aspect | Before | After |
-|--------|--------|-------|
-| Bug Status | 404 for all IDs | 200 with correct user data |
-| Tests | None | 8 tests, 100% pass |
-| Security | Not reviewed | Reviewed, 0 critical issues |
-| Documentation | Bug report only | Full pipeline artifacts |
+### Task 1: GitHub MCP Result
+![GitHub MCP Result](homework-5/docs/screenshots/github-mcp-result.png)
+
+### Task 2: Filesystem MCP Result
+![Filesystem MCP Result](homework-5/docs/screenshots/filesystem-mcp-result.png)
+
+### Task 3: GitHub Issues MCP Result
+![GitHub Issues MCP Result](homework-5/docs/screenshots/github-issues-mcp-result.png)
+
+### Task 4: Custom MCP Read Tool Result
+![Custom MCP Read Tool Result](homework-5/docs/screenshots/custom-mcp-read-tool-result.png)
 
 ---
 
-## 🚀 How to Run
+## 🤖 AI Tools Used
+
+- **Claude Code CLI** (claude-sonnet-4-6) — MCP server configuration, custom server implementation, documentation
+- **FastMCP** — Python framework for building MCP servers
+
+---
+
+## 🚀 How to Run the Custom MCP Server
 
 ```bash
-cd homework-4/demo-bug-fix
-npm install
-npm test          # 8/8 tests pass
-npm start         # Start server
-curl http://localhost:3000/api/users/123  # Test endpoint
+cd homework-5/custom-mcp-server
+pip install -r requirements.txt
+python server.py
 ```
 
-See [homework-4/HOWTORUN.md](homework-4/HOWTORUN.md) for detailed instructions.
+See [`custom-mcp-server/HOWTORUN.md`](homework-5/custom-mcp-server/HOWTORUN.md) for full instructions including MCP client configuration.
 
 ---
 
 **Ready for review!** 🚀
-
----
