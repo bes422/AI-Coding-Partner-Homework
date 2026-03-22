@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "Bash(claude --teleport:*)",
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "Bash(pip show:*)",
+      "Bash(python test_mcp.py custom)",
+      "Bash(python test_mcp.py filesystem)",
+      "Bash(python test_mcp.py github)",
+      "Bash(python test_mcp.py jira)",
+      "Bash(python -c \"import mcp_server_jira; import inspect; print\\(inspect.getfile\\(mcp_server_jira\\)\\)\")",
+      "Bash(set -a)",
+      "Bash(source .env)",
+      "Bash(set +a)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node -e \"require\\(''''puppeteer''''\\)\")",
+      "Bash(pip install:*)",
+      "Bash(python -m playwright install chromium)",
+      "Bash(gh pr:*)"
     ]
   }
 }

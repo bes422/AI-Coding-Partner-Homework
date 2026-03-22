@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mcp-screenshots",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "7788", "--directory", "homework-5/docs/screenshots/html"],
+      "port": 7788
+    }
+  ]
+}

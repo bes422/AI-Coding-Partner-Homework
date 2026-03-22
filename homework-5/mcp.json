@@ -16,13 +16,12 @@
       ]
     },
     "jira": {
-      "command": "npx",
-      "args": ["-y", "mcp-server-jira"],
-      "env": {
-        "JIRA_URL": "${JIRA_URL}",
-        "JIRA_USERNAME": "${JIRA_USERNAME}",
-        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
-      }
+      "command": "python",
+      "args": [
+        "-m", "mcp_server_jira",
+        "--jira-base-url", "${JIRA_URL}",
+        "--jira-token", "${JIRA_API_TOKEN}"
+      ]
     },
     "lorem-ipsum": {
       "command": "python",
