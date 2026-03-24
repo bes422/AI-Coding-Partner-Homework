@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Filesystem MCP Server - Result</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; font-size: 13px; line-height: 1.6; padding: 24px; }
+  .window { background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; max-width: 900px; }
+  .titlebar { background: #21262d; padding: 10px 16px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 12px; }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #28c840; }
+  .title { color: #8b949e; font-size: 12px; margin-left: 8px; }
+  .content { padding: 20px; }
+  .section { margin-bottom: 20px; }
+  .header { color: #58a6ff; font-weight: bold; font-size: 14px; margin-bottom: 8px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+  .server-info { color: #8b949e; margin-bottom: 4px; }
+  .server-info span { color: #79c0ff; }
+  .divider { color: #58a6ff; }
+  .label { color: #3fb950; font-weight: bold; margin-top: 14px; margin-bottom: 4px; }
+  .request { color: #d2a8ff; margin: 8px 0; padding: 8px 12px; background: #0d1117; border-left: 3px solid #d2a8ff; border-radius: 0 4px 4px 0; }
+  .response { color: #e6edf3; margin: 4px 0; padding: 8px 12px; background: #0d1117; border-left: 3px solid #3fb950; border-radius: 0 4px 4px 0; white-space: pre; }
+  .tools { color: #ffa657; padding: 4px 0; white-space: pre-wrap; word-break: break-word; }
+  .success { color: #3fb950; margin-top: 16px; font-weight: bold; }
+  .badge { display: inline-block; background: #1f6feb; color: #e6edf3; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px; vertical-align: middle; }
+  .dir  { color: #79c0ff; }
+  .file { color: #e6edf3; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+    <span class="title">Terminal — python test_mcp.py filesystem</span>
+    <span class="badge">@modelcontextprotocol/server-filesystem</span>
+  </div>
+  <div class="content">
+    <div class="divider">============================================================</div>
+    <div class="header">FILESYSTEM MCP SERVER</div>
+    <div class="divider">============================================================</div>
+
+    <div class="section">
+      <div class="server-info">Allowed path: <span>d:/projects/ai_coding_partner_homework/AI-Coding-Partner-Homework</span></div>
+      <div class="tools">Available tools: ['read_file', 'read_text_file', 'read_media_file', 'read_multiple_files',
+  'write_file', 'edit_file', 'create_directory', 'list_directory',
+  'list_directory_with_sizes', 'directory_tree', 'move_file',
+  'search_files', 'get_file_info', 'list_allowed_directories']</div>
+    </div>
+
+    <div class="section">
+      <div class="label">▶ Tool call: list_directory</div>
+      <div class="request">&gt;&gt;&gt; client.call_tool("list_directory", {"path": "d:/…/homework-5"})</div>
+      <div class="response"><span class="file">[FILE] .env</span>
+<span class="dir">[DIR]  custom-mcp-server</span>
+<span class="dir">[DIR]  docs</span>
+<span class="file">[FILE] HOWTORUN.md</span>
+<span class="file">[FILE] mcp.json</span>
+<span class="dir">[DIR]  plan</span>
+<span class="file">[FILE] README.md</span>
+<span class="file">[FILE] TASKS.md</span></div>
+    </div>
+
+    <div class="success">✓ Filesystem MCP server test complete — directory listing returned successfully</div>
+  </div>
+</div>
+</body>
+</html>

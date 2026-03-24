@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>GitHub MCP Server - Result</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #e6edf3; font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace; font-size: 13px; line-height: 1.6; padding: 24px; }
+  .window { background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; max-width: 960px; }
+  .titlebar { background: #21262d; padding: 10px 16px; border-bottom: 1px solid #30363d; display: flex; align-items: center; gap: 12px; }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #28c840; }
+  .title { color: #8b949e; font-size: 12px; margin-left: 8px; }
+  .content { padding: 20px; }
+  .section { margin-bottom: 20px; }
+  .header { color: #58a6ff; font-weight: bold; font-size: 14px; margin-bottom: 8px; border-bottom: 1px solid #21262d; padding-bottom: 6px; }
+  .server-info { color: #8b949e; margin-bottom: 4px; }
+  .server-info span { color: #79c0ff; }
+  .divider { color: #58a6ff; }
+  .label { color: #3fb950; font-weight: bold; margin-top: 14px; margin-bottom: 4px; }
+  .request { color: #d2a8ff; margin: 8px 0; padding: 8px 12px; background: #0d1117; border-left: 3px solid #d2a8ff; border-radius: 0 4px 4px 0; }
+  .response { color: #e6edf3; margin: 4px 0; padding: 8px 12px; background: #0d1117; border-left: 3px solid #3fb950; border-radius: 0 4px 4px 0; white-space: pre; font-size: 12px; }
+  .tools { color: #ffa657; padding: 4px 0; }
+  .success { color: #3fb950; margin-top: 16px; font-weight: bold; }
+  .badge { display: inline-block; background: #1f6feb; color: #e6edf3; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px; vertical-align: middle; }
+  .key { color: #79c0ff; }
+  .str { color: #a5d6ff; }
+  .num { color: #f8c555; }
+  .bool { color: #ff7b72; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+    <span class="title">Terminal — python test_mcp.py github</span>
+    <span class="badge">@modelcontextprotocol/server-github</span>
+  </div>
+  <div class="content">
+    <div class="divider">============================================================</div>
+    <div class="header">GITHUB MCP SERVER</div>
+    <div class="divider">============================================================</div>
+
+    <div class="section">
+      <div class="tools">Available tools (26 total): ['create_or_update_file', 'search_repositories', 'create_repository', 'get_file_contents', 'push_files', ...]</div>
+    </div>
+
+    <div class="section">
+      <div class="label">▶ Tool call: search_repositories</div>
+      <div class="request">&gt;&gt;&gt; client.call_tool("search_repositories", {"query": "AI-Coding-Partner-Homework"})</div>
+      <div class="response">{
+  <span class="key">"total_count"</span>: <span class="num">1</span>,
+  <span class="key">"incomplete_results"</span>: <span class="bool">false</span>,
+  <span class="key">"items"</span>: [
+    {
+      <span class="key">"id"</span>: <span class="num">1137855535</span>,
+      <span class="key">"name"</span>: <span class="str">"AI-Coding-Partner-Homework"</span>,
+      <span class="key">"full_name"</span>: <span class="str">"Alexey-Popov/AI-Coding-Partner-Homework"</span>,
+      <span class="key">"private"</span>: <span class="bool">false</span>,
+      <span class="key">"html_url"</span>: <span class="str">"https://github.com/Alexey-Popov/AI-Coding-Partner-Homework"</span>,
+      <span class="key">"description"</span>: <span class="str">"AI coding education course homework assignments"</span>,
+      <span class="key">"default_branch"</span>: <span class="str">"main"</span>,
+      <span class="key">"created_at"</span>: <span class="str">"2026-01-19T23:39:25Z"</span>,
+      <span class="key">"updated_at"</span>: <span class="str">"2026-03-16T21:58:00Z"</span>
+    }
+  ]
+}</div>
+    </div>
+
+    <div class="success">✓ GitHub MCP server test complete — repository search returned 1 result</div>
+  </div>
+</div>
+</body>
+</html>

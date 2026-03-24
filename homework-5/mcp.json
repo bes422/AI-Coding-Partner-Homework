@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "d:/projects/ai_coding_partner_homework/AI-Coding-Partner-Homework"
+      ]
+    },
+    "jira": {
+      "command": "python",
+      "args": [
+        "-m", "mcp_server_jira",
+        "--jira-base-url", "${JIRA_URL}",
+        "--jira-token", "${JIRA_API_TOKEN}"
+      ]
+    },
+    "lorem-ipsum": {
+      "command": "python",
+      "args": ["custom-mcp-server/server.py"]
+    }
+  }
+}
