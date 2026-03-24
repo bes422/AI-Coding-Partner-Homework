@@ -1,7 +1,7 @@
 # Homework 5: MCP Servers Configuration
 
 ## Author
-**Name:** [Your Name Here]
+**Name:** Mykhailo Bestiuk
 
 ## Overview
 
