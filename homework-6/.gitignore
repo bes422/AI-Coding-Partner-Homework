@@ -1,5 +1,7 @@
 # Runtime pipeline artifacts — directories are tracked via .gitkeep
-
+shared/input/*.json
+shared/processing/*.json
+shared/results/*.json
 
 # Python cache
 __pycache__/
