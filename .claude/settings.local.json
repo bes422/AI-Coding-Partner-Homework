@@ -16,7 +16,24 @@
       "Bash(node -e \"require\\(''''puppeteer''''\\)\")",
       "Bash(pip install:*)",
       "Bash(python -m playwright install chromium)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(python integrator.py)",
+      "Bash(python -m pytest tests/ --cov=agents --cov-report=term-missing -v)",
+      "Bash(python agents/transaction_validator.py --dry-run)",
+      "Bash(python \"D:/projects/ai_coding_partner_homework/AI-Coding-Partner-Homework/homework-6/integrator.py\")",
+      "Bash(python -c \"from PIL import Image; print\\(''OK''\\)\")",
+      "Bash(python -c \"import mss; print\\(''OK''\\)\")",
+      "Bash(pip list:*)",
+      "Bash(python docs/generate_screenshots.py)",
+      "Bash(python -c \"import sys; print\\(sys.stdout.encoding\\)\")",
+      "Bash(python -c \"from mcp.server import get_transaction_status, list_pipeline_results; import json; print\\(json.dumps\\(get_transaction_status\\(''TXN001''\\), indent=2\\)\\)\")",
+      "Bash(python -c \"import mcp.types; print\\(''mcp.types OK''\\)\")",
+      "Bash(python -c \"import mcp; print\\(dir\\(mcp\\)\\)\")",
+      "Bash(ls shared/results/*.json)",
+      "Read(//d/projects/ai_coding_partner_homework/.claude/commands/**)",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''''../.claude/settings.json''''\\)\\); print\\(''''PreToolUse hook:'''', ''''PreToolUse'''' in d.get\\(''''hooks'''', {}\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''''mcp.json''''\\)\\); print\\(list\\(d[''''mcpServers''''].keys\\(\\)\\)\\)\")",
+      "Bash(python -m pytest tests/ --cov=agents --cov-fail-under=80 -q --tb=no)"
     ]
   }
 }
