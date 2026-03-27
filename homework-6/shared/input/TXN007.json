@@ -1,0 +1,21 @@
+{
+  "message_id": "01b81034-30be-4015-b003-191f721f3dfd",
+  "timestamp": "2026-03-24T10:10:32.735946+00:00",
+  "source_agent": "integrator",
+  "target_agent": "transaction_validator",
+  "message_type": "transaction",
+  "data": {
+    "transaction_id": "TXN007",
+    "timestamp": "2026-03-16T10:10:00Z",
+    "source_account": "ACC-1007",
+    "destination_account": "ACC-8800",
+    "amount": "-100.00",
+    "currency": "GBP",
+    "transaction_type": "refund",
+    "description": "Refund for order #8821",
+    "metadata": {
+      "channel": "online",
+      "country": "GB"
+    }
+  }
+}
