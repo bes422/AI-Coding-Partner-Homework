@@ -7,22 +7,35 @@ This file describes the four meta-agents that build and operate the banking pipe
 ## Meta-Agents (What You Build With Claude Code)
 
 ### Agent 1 — Specification Agent
+<!-- metadata
+skills: /write-spec (.claude/commands/write-spec.md)
+-->
 **Role**: Produces `specification.md` from the template.
 **Skill**: `/write-spec` slash command (`.claude/commands/write-spec.md`)
 **Output**: `specification.md` with all 5 required sections.
 
 ### Agent 2 — Code Generation Agent
+<!-- metadata
+mcp: context7
+-->
 **Role**: Generates the full pipeline code (3 cooperating agents + integrator).
 **MCP**: Uses `context7` to look up Python library docs during generation.
 **Output**: `agents/` directory with validator, fraud detector, settlement processor; `integrator.py`.
 
 ### Agent 3 — Unit Test Agent
+<!-- metadata
+skills: /run-pipeline, /validate-transactions
+hooks: coverage-gate (blocks git push if coverage < 80%)
+-->
 **Role**: Creates the test suite and enforces coverage standards.
 **Hook**: Coverage gate in `.claude/settings.json` blocks `git push` if coverage < 80%.
 **Skills**: `/run-pipeline`, `/validate-transactions`
 **Output**: `tests/` directory with unit and integration tests.
 
 ### Agent 4 — Documentation Agent
+<!-- metadata
+skills: (none)
+-->
 **Role**: Generates README, HOWTORUN, and project documentation.
 **Requirement**: README must include author name and ASCII pipeline diagram.
 **Output**: `README.md`, `HOWTORUN.md`.
